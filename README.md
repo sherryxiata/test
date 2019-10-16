@@ -8,5 +8,5 @@
 
 - Installation and use of wampserserver, hbuilder, git.
 
-Hope u all have fun in php!
+- Have fun in php!
 
