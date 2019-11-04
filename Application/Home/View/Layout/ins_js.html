@@ -1,0 +1,41 @@
+<script src="__JS__/jquery.min.js?v=2.1.4"></script>
+<script>
+	var resizeWaiter = undefined;
+	$(document).ready(function() {
+		setRootFontSize();
+	})
+	$(window).on('resize', function() {
+		if(!resizeWaiter) {
+			resizeWaiter = true;
+			//优化，限制图表resize的频率
+			setTimeout(function() {
+				/*---------在以下写要执行的代码-------*/
+				setRootFontSize();
+				/*---------在以上写要执行的代码-------*/
+				resizeWaiter = false;
+			}, 100);
+		}
+	})
+
+	function setRootFontSize() {
+		//rem布局设置宽高比
+		//没有得到信息，目前按照宽1920时100像素等比缩放
+		var html = document.getElementsByTagName('html')[0];
+		var needWidth = 0;
+		if(window.innerWidth)
+			needWidth = window.innerWidth;
+		else if((document.body) && (document.body.clientWidth))
+			needWidth = document.body.clientWidth;
+		else if(document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
+			needWidth = document.documentElement.clientWidth;
+		html.style.fontSize = 100 / 1242 * needWidth + 'px';
+	}
+</script>
+
+
+<script src="__VENDOR__/loading/loading.js"></script>
+
+<include file='Layout:ins_footer'/>
+
+<!--ydui-->
+<!--<script type="text/javascript" src="__JS__/ydui.js"></script>-->
