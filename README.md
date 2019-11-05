@@ -10,3 +10,6 @@
 
 - Have fun in php!
 
+## 2019.11.06 lesson2
+
+- try to write a simple login page involving html, css, jquery and php.
