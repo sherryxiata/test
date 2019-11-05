@@ -1,12 +1,20 @@
-<!DOCTYPE html>
+<?php if (!defined('THINK_PATH')) exit();?><!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="utf-8">
-		<include file="Layout:ins_css" />
+		<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--loading css-->
+<link href="/test/Public/vendor/loading/loading.css" rel="stylesheet" />
+<link href="/test/Public/css/font-awesome.min.css" rel="stylesheet">
+<link href="/test/Public/css/animate.css" rel="stylesheet">
+<link href="/test/Public/css/style.css" rel="stylesheet">
+<!--ydui-->
+<link href="/test/Public/css/ydui.css" rel="stylesheet">
 		<title>登录</title>
 		<style>
 			body{
-				background: url("__PUBLIC__/img/home/register.png");
+				background: url("/test/Public/img/home/register.png");
 				background-size: 100% 100%;
 			}
 			
@@ -19,7 +27,7 @@
 				width: 100%;
 				border:0;
 				margin-bottom: 0.68rem;
-				background: url("__PUBLIC__/img/home/phone.png") no-repeat;
+				background: url("/test/Public/img/home/phone.png") no-repeat;
 				background-size: 6%;
 				background-position: 0.46rem;
 				background-color: #FCFCFC;
@@ -32,7 +40,7 @@
 				width: 100%;
 				border:0;
 				margin-bottom: 0.68rem;
-				background: url("__PUBLIC__/img/home/lock.png") no-repeat;
+				background: url("/test/Public/img/home/lock.png") no-repeat;
 				background-size: 6%;
 				background-position: 0.46rem;
 				background-color: #FCFCFC;
@@ -105,8 +113,44 @@
 		</div>
 	</body>
 
-	<include file="Layout:ins_js" />
-	<script type="text/javascript" src="__JS__/ydui.js"></script>
+	<script src="/test/Public/js/jquery.min.js?v=2.1.4"></script>
+<script>
+	var resizeWaiter = undefined;
+	$(document).ready(function() {
+		setRootFontSize();
+	})
+	$(window).on('resize', function() {
+		if(!resizeWaiter) {
+			resizeWaiter = true;
+			//优化，限制图表resize的频率
+			setTimeout(function() {
+				/*---------在以下写要执行的代码-------*/
+				setRootFontSize();
+				/*---------在以上写要执行的代码-------*/
+				resizeWaiter = false;
+			}, 100);
+		}
+	})
+
+	function setRootFontSize() {
+		//rem布局设置宽高比
+		//没有得到信息，目前按照宽1920时100像素等比缩放
+		var html = document.getElementsByTagName('html')[0];
+		var needWidth = 0;
+		if(window.innerWidth)
+			needWidth = window.innerWidth;
+		else if((document.body) && (document.body.clientWidth))
+			needWidth = document.body.clientWidth;
+		else if(document.documentElement && document.documentElement.clientHeight && document.documentElement.clientWidth)
+			needWidth = document.documentElement.clientWidth;
+		html.style.fontSize = 100 / 1242 * needWidth + 'px';
+	}
+</script>
+
+
+<script src="/test/Public/vendor/loading/loading.js"></script>
+
+	<script type="text/javascript" src="/test/Public/js/ydui.js"></script>
 	<script>
 		function checkLogin() {
 			var account = $('.acc').val();
@@ -126,10 +170,10 @@
 				},
 				type: "POST",
 				dataType: "JSON",
-				url: '__URL__/loginCheck',
+				url: '/test/index.php/Home/Lesson2/loginCheck',
 				success: function(result) {
 					if (result.state == true) {
-						window.location.href = "__MODULE__/HomePage/index";
+						window.location.href = "/test/index.php/Home/HomePage/index";
 					} else {
 						YDUI.dialog.toast(result.info, 'error', 1000);
 					}
